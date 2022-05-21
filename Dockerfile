@@ -13,12 +13,11 @@ WORKDIR .
 COPY . . 
 
 RUN pip install -q deeppavlov==0.4.0
-RUN python -m deeppavlov install fasttext_avg_autofaq
-RUN python -m deeppavlov install fasttext_tfidf_autofaq
-RUN python -m deeppavlov install tfidf_autofaq
-RUN python -m deeppavlov install tfidf_logreg_autofaq
-RUN python -m deeppavlov install tfidf_logreg_en_faq
-
+RUN python -m deeppavlov install fasttext_avg_autofaq -d
+RUN python -m deeppavlov install fasttext_tfidf_autofaq -d
+RUN python -m deeppavlov install tfidf_autofaq -d
+RUN python -m deeppavlov install tfidf_logreg_autofaq -d
+RUN python -m deeppavlov install tfidf_logreg_en_faq -d
 RUN ls -la ./brain.py
 
 CMD ["python3", "./brain.py"]

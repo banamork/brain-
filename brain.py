@@ -15,3 +15,10 @@ faq = SimilarityMatchingSkill(data_path = './faq_school.csv',
                               edit_dict = {},
                               train = True)
 faq = SimilarityMatchingSkill(save_load_path='./model')
+
+from deeppavlov.skills.pattern_matching_skill import PatternMatchingSkill
+
+hello = PatternMatchingSkill(responses=['Привет', 'Приветствую'], patterns=['Привет', 'Здравствуйте'])
+bye = PatternMatchingSkill(responses=['Пока', 'Всего доброго'], patterns=['Пока', 'До свидания'])
+fallback = PatternMatchingSkill(responses=['Пожалуйста перефразируйте'], default_confidence = 0.3)
+
