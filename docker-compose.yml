@@ -1,0 +1,44 @@
+
+version: '3.7'
+services:
+ db:
+    container_name: sql-support_bot_db
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3300:3306
+    env_file: .env
+    volumes:
+      - ./SQL-DB/sql:/docker-entrypoint-initdb.d
+      - db:/var/lib/mysql
+      - ./SQL-DB/sql_conf:/etc/mysql/conf.d
+ telegram-bot-api:
+    image: python:latest
+    restart: always
+    build: .
+    depends_on:
+     - db
+    env_file: .env
+    environment:
+    - NAME=${MYSQL_NAME}
+    - HOST=${MYSQL_HOST}
+    - USER=${MYSQL_USER}
+    - PASSWORD=${MYSQL_PASSWORD}
+    links:
+     - db
+    ports:
+     - 8081:8081
+    volumes:
+        - ./:/data
+ telegram-bot-api-2:
+    image: python:3.7
+    restart: always
+    build: ./AUTO
+    env_file: .env
+    ports:
+     - 8082:8082
+
+volumes:
+  db:
+    driver: local
+
